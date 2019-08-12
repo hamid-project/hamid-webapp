@@ -145,6 +145,26 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'student_id' => 'student',
+        'supervisor_id' => 'supervisor',
+        'company_id' => 'company',
+        'company_staff_id' => 'company staff',
+        'internship_id' => 'internship',
+        'admin_id' => 'admin',
+        'name_first' => 'first name',
+        'name_middle' => 'middle name',
+        'name_last' => 'last name',
+        'contact_email1' => 'Email #1',
+        'contact_email2' => 'Email #2',
+        'contact_phone1' => 'Phone #1',
+        'contact_phone2' => 'Phone #2',
+
+        'enrollment_start_code' => 'Start Enrollment',
+        'enrollment_finish_code' => 'Finish Enrollment',
+
+        'internship_begin' => 'Begin Internship',
+        'internship_end' => 'End Internship',
+    ],
 
 ];

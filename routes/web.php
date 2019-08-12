@@ -13,4 +13,26 @@
 
 Route::get('/', function () {
     return view('welcome');
+})->name('top');
+
+Auth::routes(['register' => false]);
+
+//Route::get('/home', 'HomeController@index')->name('home');
+
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function() {
+    Route::get('', 'Admin\TopController@dashboard')->name('dashboard');
+
+    Route::resource('supervisors', 'Admin\SupervisorController');
+    Route::resource('students', 'Admin\StudentController');
+    Route::resource('companies', 'Admin\CompanyController');
+    Route::resource('companyStaff', 'Admin\CompanyStaffController');
+    Route::resource('internships', 'Admin\InternshipController');
+    Route::resource('internshipApplications', 'Admin\InternshipApplicationController');
+    Route::resource('communicationGiftHistories', 'Admin\CommunicationGiftHistoryController');
+    Route::resource('communicationContactHistories', 'Admin\CommunicationContactHistoryController');
+});
+
+Route::prefix('student')->name('student.')->group(function() {
+    Route::resource('students', 'Student\StudentController')->only(['create', 'store']);
+    Route::get('students/completed', 'Student\StudentController@completed')->name('students.completed');
 });
