@@ -54,4 +54,30 @@ class Internship extends BaseModel
         return $this->belongsTo('App\Supervisor');
     }
 
+    public static function getByStudent(\App\Student $student)
+    {
+        return self::getQueryByStudent($student)->get();
+    }
+
+    public static function getQueryByStudent(\App\student $student)
+    {
+        $q = self::getQueryByPotentials($student->potentials);
+
+        return $q;
+    }
+
+    public static function getByPotentials(array $potentials)
+    {
+        return self::getQueryByPotentials($potentials)->get();
+    }
+
+    public static function getQueryByPotentials(array $potentials)
+    {
+        $q = self::query()
+           ->whereJsonContains('potentials->area_cores', $potentials['area_codes'])
+           ->whereJsonContains('potentials->specialisation_codes', $potentials['specialisation_codes'], 'OR')
+           ->whereJsonContains('potentials->transportation_codes', $potentials['transportation_codes'], 'OR')
+            ;
+        return $q;
+    }
 }

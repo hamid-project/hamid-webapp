@@ -42,6 +42,9 @@ $currentMenu = 'internships';
         <dd class="col-md-10">{{ implode(', ', $internship->potential_transportation_codes) }}</dd>
     </dl>
 
+    <h4>{{ __('Potential Students') }}</h4>
+    @include('admin.students._table')
+
     <div>
         <a href="{{ route('admin.internships.edit', $internship->id) }}" class="btn btn-primary">
             {{ __('Edit') }}

@@ -162,10 +162,10 @@ class InternshipController extends Controller
      */
     public function show(Internship $internship)
     {
-        //$students = Student::findByInternshipPotentials($internship);
+        $students = \App\Student::getByInternship($internship);
 
         return view('admin.internships.show', [
-            //'students' => $students,
+            'students' => $students,
             'internship' => $internship,
         ]);
     }
