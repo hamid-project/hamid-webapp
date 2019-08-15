@@ -137,6 +137,11 @@ class BaseModel extends Model
         return self::getSchoolConfigHashForSelectForm('transportations');
     }
 
+    public function getFormattedUpdatedAtAttribute()
+    {
+        return $this->getLocaleDate($this->updated_at, 'LLL');
+    }
+
     public function getLocaleDate(Carbon $date, $format = 'L')
     {
         return $date->locale(\App::getLocale())->isoFormat($format);
