@@ -19,6 +19,11 @@ Auth::routes(['register' => false]);
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
+Route::middleware('auth')->prefix('myaccount')->name('myaccount.')->group(function() {
+    Route::get('password', 'MyAccount\MyAccountController@password_edit')->name('password.edit');
+    Route::put('password', 'MyAccount\MyAccountController@password_update')->name('password.update');
+});
+
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function() {
     Route::get('', 'Admin\TopController@dashboard')->name('dashboard');
 

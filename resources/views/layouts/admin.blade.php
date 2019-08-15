@@ -41,14 +41,21 @@ foreach (array_keys($menuMap) as $menuName) {
 }
 
 $parts = explode('.', Route::currentRouteName());
-$subMenu = $parts[1];
-$menu = $subMenuMap[$subMenu] ?? $subMenuMap[$subMenu];
+switch ($parts[0]) {
+case 'myaccount':
+    break;
 
-$menuMap[$menu]['open'] = 'open';
-$menuMap[$menu]['active'] = 'active';
-$menuMap[$menu]['subMenu'][$subMenu]['active'] = 'active';
+default:
+    $subMenu = $parts[1];
+    $menu = $subMenuMap[$subMenu] ?? $subMenuMap[$subMenu];
 
-//var_dump($menu, $subMenu, $menuMap, $menuMap[$menu]);exit;
+    $menuMap[$menu]['open'] = 'open';
+    $menuMap[$menu]['active'] = 'active';
+    $menuMap[$menu]['subMenu'][$subMenu]['active'] = 'active';
+
+    break;
+}
+
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -83,7 +90,7 @@ $menuMap[$menu]['subMenu'][$subMenu]['active'] = 'active';
                                     <span class="name"> {{ Auth::user()->email }} </span>
                                 </a>
                                 <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <a class="dropdown-item" href="">
+                                    <a class="dropdown-item" href="{{ route('myaccount.password.edit') }}">
                                         <i class="fa fa-user icon"></i> Password </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="javascript:logout.submit()">
