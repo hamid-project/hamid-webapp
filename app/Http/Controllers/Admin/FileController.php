@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Files;
+use App\File;
 use Illuminate\Http\Request;
 
-class FilesController extends Controller
+class FileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class FilesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Files  $files
+     * @param  \App\File  $file
      * @return \Illuminate\Http\Response
      */
-    public function show(Files $files)
+    public function show(File $file)
     {
         //
     }
@@ -53,10 +53,10 @@ class FilesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Files  $files
+     * @param  \App\File  $file
      * @return \Illuminate\Http\Response
      */
-    public function edit(Files $files)
+    public function edit(File $file)
     {
         //
     }
@@ -65,10 +65,10 @@ class FilesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Files  $files
+     * @param  \App\File  $file
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Files $files)
+    public function update(Request $request, File $file)
     {
         //
     }
@@ -76,10 +76,10 @@ class FilesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Files  $files
+     * @param  \App\File  $file
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Files $files)
+    public function destroy(File $file)
     {
         //
     }
