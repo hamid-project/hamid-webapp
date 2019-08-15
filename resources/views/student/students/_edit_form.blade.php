@@ -48,6 +48,15 @@
     </div>
 </div>
 
+<h4>{{ __('File Attachment') }}</h4>
+<div class="row">
+    <div class="col-sm">
+        <div class="form-group">
+            {{ Form::file('file', ['class' => 'form-control-file']) }}
+        </div>
+    </div>
+</div>
+
 <h4>{{ __('Potential Preference') }}</h4>
 
 <div class="row">
