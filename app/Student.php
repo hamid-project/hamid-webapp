@@ -64,11 +64,20 @@ class Student extends BaseModel
 
     public static function getQueryByPotentials(array $potentials)
     {
-        $q = self::query()
-           ->whereJsonContains('potentials->area_cores', $potentials['area_codes'])
-           ->whereJsonContains('potentials->specialisation_codes', $potentials['specialisation_codes'], 'OR')
-           ->whereJsonContains('potentials->transportation_codes', $potentials['transportation_codes'], 'OR')
-            ;
+        $q = self::query();
+
+        if ($potentials['area_codes']) {
+            $q->whereJsonContains('potentials->area_cores', $potentials['area_codes'], 'OR');
+        }
+
+        if ($potentials['specialisation_codes']) {
+            $q->whereJsonContains('potentials->specialisation_codes', $potentials['specialisation_codes'], 'OR');
+        }
+
+        if ($potentials['transportation_codes']) {
+            $q->whereJsonContains('potentials->transportation_codes', $potentials['transportation_codes'], 'OR');
+        }
+
         return $q;
     }
 
