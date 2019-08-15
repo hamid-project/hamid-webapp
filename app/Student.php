@@ -45,4 +45,31 @@ class Student extends BaseModel
         return $this->belongsToMany(\App\File::class, 'student_files');
     }
 
+    public static function getByInternship(\App\Internship $internship)
+    {
+        return self::getQueryByInternship($internship)->get();
+    }
+
+    public static function getQueryByInternship(\App\Internship $internship)
+    {
+        $q = self::getQueryByPotentials($internship->potentials);
+
+        return $q;
+    }
+
+    public static function getByPotentials(array $potentials)
+    {
+        return self::getQueryByPotentials($potentials)->get();
+    }
+
+    public static function getQueryByPotentials(array $potentials)
+    {
+        $q = self::query()
+           ->whereJsonContains('potentials->area_cores', $potentials['area_codes'])
+           ->whereJsonContains('potentials->specialisation_codes', $potentials['specialisation_codes'], 'OR')
+           ->whereJsonContains('potentials->transportation_codes', $potentials['transportation_codes'], 'OR')
+            ;
+        return $q;
+    }
+
 }

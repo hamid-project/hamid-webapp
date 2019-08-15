@@ -62,7 +62,6 @@ class StudentController extends Controller
      */
     public function create(Request $request)
     {
-        //
         $student = new Student;
 
         return view('admin.students.create', [
@@ -163,9 +162,12 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
+        $internships = \App\Internship::getByStudent($student);
+
         return view('admin.students.show', [
             'student' => $student,
             'files' => $student->files()->get(),
+            'internships' => $internships,
         ]);
     }
 

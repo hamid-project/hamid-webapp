@@ -56,6 +56,9 @@
         <dd class="col-md-10">{{ implode(', ', $student->potential_transportation_codes) }}</dd>
     </dl>
 
+    <h4>{{ __('Potential Internships') }}</h4>
+    @include('admin.internships._table')
+
     <div>
         <a href="{{ route('admin.students.edit', ['id' => $student->id]) }}" class="btn btn-primary">
             {{ __('Edit') }}
