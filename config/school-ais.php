@@ -47,12 +47,15 @@ return [
     ],
 
     'semesters' => [
+        ['code' => '2020S3', 'name' => 'Semester 3, 2020','year' => 2020, 'semester' => 3, 'start' => '2020/09/09', 'finish' => '2020/12/13'],
+        ['code' => '2020S2', 'name' => 'Semester 2, 2020','year' => 2020, 'semester' => 2, 'start' => '2020/05/20', 'finish' => '2020/08/23'],
+        ['code' => '2020S1', 'name' => 'Semester 1, 2020','year' => 2020, 'semester' => 1, 'start' => '2020/01/29', 'finish' => '2020/05/03'],
         ['code' => '2019S3', 'name' => 'Semester 3, 2019','year' => 2019, 'semester' => 3, 'start' => '2019/09/09', 'finish' => '2019/12/13'],
         ['code' => '2019S2', 'name' => 'Semester 2, 2019','year' => 2019, 'semester' => 2, 'start' => '2019/05/20', 'finish' => '2019/08/23'],
         ['code' => '2019S1', 'name' => 'Semester 1, 2019','year' => 2019, 'semester' => 1, 'start' => '2019/01/29', 'finish' => '2019/05/03'],
         ['code' => '2018S3', 'name' => 'Semester 3, 2018','year' => 2018, 'semester' => 3, 'start' => '2018/09/10', 'finish' => '2018/12/14'],
-        ['code' => '2018S2', 'name' => 'Semester 2, 2018','year' => 2018, 'semester' => 3, 'start' => '2018/09/10', 'finish' => '2018/12/14'],
-        ['code' => '2018S1', 'name' => 'Semester 1, 2018','year' => 2018, 'semester' => 3, 'start' => '2018/09/10', 'finish' => '2018/12/14'],
+        ['code' => '2018S2', 'name' => 'Semester 2, 2018','year' => 2018, 'semester' => 3, 'start' => '2018/05/21', 'finish' => '2018/08/24'],
+        ['code' => '2018S1', 'name' => 'Semester 1, 2018','year' => 2018, 'semester' => 3, 'start' => '2018/01/30', 'finish' => '2018/05/04'],
     ],
 
     'areas' => [
