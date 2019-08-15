@@ -38,6 +38,14 @@
         <dd class="col-md-10">{{ $student->specialisation->name }}</dd>
     </dl>
 
+    <h4>{{ __('Attachment Files') }}</h4>
+    @if (0 < $files->count())
+        <ul>
+        @foreach ($files as $file)
+            <li><a href="{{ route('admin.files.download', ['id' => $file->id]) }}">{{ $file->name }}</a> ({{ $file->size }} Byte(s), {{ $file->formatted_updated_at }})</li>
+        @endforeach
+        </ul>
+    @endif
     <h4>{{ __('Potential Information') }}</h4>
     <dl class="row">
         <dt class="col-md-2">{{ __('Areas') }}</dt>

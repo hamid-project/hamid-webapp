@@ -40,4 +40,9 @@ class Student extends BaseModel
         return $this->getCodeName('semesters', $this->enrollment_finish_code);
     }
 
+    public function files()
+    {
+        return $this->belongsToMany(\App\File::class, 'student_files');
+    }
+
 }

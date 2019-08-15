@@ -11,7 +11,7 @@
         <a href="{{ route('admin.students.index') }}" class="btn btn-primary">{{ __('Back to list') }}</a>
     </div>
 
-    {{ Form::open(['route' => 'admin.students.store']) }}
+    {{ Form::open(['route' => 'admin.students.store', 'enctype' => 'multipart/form-data']) }}
 
     @component('admin.students._edit_form')
         @slot('student', $student)

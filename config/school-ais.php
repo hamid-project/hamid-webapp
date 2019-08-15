@@ -1,6 +1,38 @@
 <?php
 
 return [
+    'attachment' => [
+        'allow' => [
+            'size' => 1 * 1000 * 1000,
+            'extensions' => [
+                // Adobe Acrobat
+                'pdf',
+
+                // Microsoft Office
+                'docx',
+                'pptx',
+                'xlsx',
+                'doc',
+                'ppt',
+                'xls',
+
+                // LibreOffice/Apache OpenOffice
+                'odt',
+                'ods',
+                'odp',
+
+                // Misc
+                'html',
+                'htm',
+                'jpeg',
+                'jpg',
+                'png',
+                'tiff',
+                'tif',
+            ],
+        ],
+    ],
+
     'programmes' => [
         'BIT' =>   ['code' => 'BIT',   'name' => '7.300 Bachelor of Information Technology'],
         'GDIT' =>  ['code' => 'GDIT',  'name' => '7.400 Graduate Diploma in Information Technology'],

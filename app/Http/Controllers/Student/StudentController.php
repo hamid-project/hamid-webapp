@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\File;
 use App\Student;
+use App\StudentFile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -39,7 +41,7 @@ class StudentController extends Controller
             'contact_email2' => 'nullable|email|min:3|max:100',
             'contact_phone1' => 'nullable|min:9|max:20',
             'contact_phone2' => 'nullable|min:9|max:20',
-            'code'=> 'required|min:5|max:15|exists:students,code',
+            'code'=> 'required|min:5|max:15|unique:students,code',
             'programme_code' => 'required|min:1',
             'specialisation_code' => 'required|min:1',
             'enrollment_start_code' => 'required|string|min:1',
@@ -50,35 +52,64 @@ class StudentController extends Controller
         ]);
 
         $student = new Student;
+        \DB::transaction(function() use ($request, $student) {
+            foreach ([
+                'code',
+                'name_first', 'name_middle', 'name_last',
+                'contact_email1', 'contact_email2', 'contact_phone1', 'contact_phone2',
+                'programme_code', 'specialisation_code', 'enrollment_start_code', 'enrollment_finish_code',
+                'specialisation_codes', 'transportation_codes', 'area_codes',
+            ] as $name) {
+                switch ($name) {
+                case 'specialisation_codes':
+                case 'transportation_codes':
+                case 'area_codes':
+                    $potentials = $student->potentials;
+                    $potentials[$name] = empty($request->$name) ? [] : $request->$name;
+                    $student->potentials = $potentials;
+                    break;
 
-        foreach ([
-            'code',
-            'name_first', 'name_middle', 'name_last',
-            'contact_email1', 'contact_email2', 'contact_phone1', 'contact_phone2',
-            'programme_code', 'specialisation_code', 'enrollment_start_code', 'enrollment_finish_code',
-            'specialisation_codes', 'transportation_codes', 'area_codes',
-        ] as $name) {
-            switch ($name) {
-            case 'specialisation_codes':
-            case 'transportation_codes':
-            case 'area_codes':
-                $potentials = $student->potentials;
-                $potentials[$name] = empty($request->$name) ? [] : $request->$name;
-                $student->potentials = $potentials;
-                break;
-
-            default:
-                if (preg_match('/^prefer_transportation_/', $name)) {
-                    $student->$name = empty($request->$name) ? false : true;
-                } else {
-                    $student->$name = $request->$name === null ? '' : $request->$name;
+                default:
+                    if (preg_match('/^prefer_transportation_/', $name)) {
+                        $student->$name = empty($request->$name) ? false : true;
+                    } else {
+                        $student->$name = $request->$name === null ? '' : $request->$name;
+                    }
                 }
             }
-        }
-        $student->potentials = $potentials;
-        $student->save();
+            $student->potentials = $potentials;
+            $student->save();
 
-        return redirect()->route('student.students.completed');
+            if ($request->files->count()) {
+                $uploadedFile = $request->file('file');
+                if ($uploadedFile) {
+                    if (\Config::get('school.attachment.allow.size') < $uploadedFile->getSize()) {
+                        throw new \RuntimeException('Too large file.');
+                    }
+
+                    if (!in_array(\strtolower($uploadedFile->getClientOriginalExtension()), \Config::get('school.attachment.allow.extensions'))) {
+                        throw new \RuntimeException('This file type does not allow uploading.');
+                    }
+
+                    $file = new File;
+                    $file->name = $uploadedFile->getClientOriginalName();
+                    $file->extension = $uploadedFile->getClientOriginalExtension();
+                    $file->description = '';
+                    $file->body = file_get_contents($uploadedFile->getPathname());
+                    $file->size = $uploadedFile->getSize();
+                }
+                $file->save();
+
+                $studentFile = new StudentFile;
+                $studentFile->student_id = $student->id;
+                $studentFile->file_id = $file->id;
+                $studentFile->save();
+            }
+
+        });
+
+        return redirect()->route('student.students.completed', [
+        ]);
     }
 
     public function completed()

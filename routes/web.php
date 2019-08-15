@@ -35,6 +35,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function() {
     Route::resource('internshipApplications', 'Admin\InternshipApplicationController');
     Route::resource('communicationGiftHistories', 'Admin\CommunicationGiftHistoryController');
     Route::resource('communicationContactHistories', 'Admin\CommunicationContactHistoryController');
+
+    Route::get('files/{file}/download', 'Admin\FileController@download')->name('files.download');
 });
 
 Route::prefix('student')->name('student.')->group(function() {
